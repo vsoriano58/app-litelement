@@ -66,10 +66,10 @@ export class PwaLive extends LitElement {
     return html`
       <h1>My App</h1>
 
-      <a href="/home">Home</a> |
+      <!-- <a href="/home">Home</a> |
       <a href="/about">About</a> |
       <a href="/contact">Contact</a> |
-      <a href="/map">Map</a>
+      <a href="/map">Map</a> -->
 
       <dile-tabs selected="${this.page}" attrForSelected="name" @dile-tabs-selected-changed="${this.selectedChanged}">
         <dile-tab name="home">Home</dile-tab>
@@ -86,6 +86,12 @@ export class PwaLive extends LitElement {
       </dile-pages>
 
       <!-- <button @click="${this.navigate}">Navegar a contact</button> -->
+
+      <!-- Cuatro botones con tres funcionaientos diferentes -->
+      <button @click="${this.navegarMap}">Ir al mapa</button>
+      <button @click="${this.navegar}" data-navigation-path="map">Ir al Mapa</button>
+      <button @click="${this.navegar}" data-navigation-path="about">Ir al Sobre nosotros</button>
+      <a href="/home"><button>Ir a la Home</button></a>
     `;
   }
 
@@ -93,6 +99,18 @@ export class PwaLive extends LitElement {
 	// 	this.page = e.detail; // Al pulsar en un tab, en e.detail valdrá home, about, o contact
   // }
 
+  
+  navegar(e){
+    let page = e.target.getAttribute('data-navigation-path')
+    this.navigate(page)
+  }
+
+  
+  navegarMap(){
+    this.navigate('map')
+  }
+
+  // Para navegar cuando cambia la ruta en la barra de navegación
   selectedChanged(e) {
 		let page = e.detail;
 		this.navigate(page);
