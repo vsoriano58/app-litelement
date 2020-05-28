@@ -5,6 +5,7 @@ import './views/view-home'
 import './views/view-about'
 import './views/view-contact'
 import './views/view-map'
+import './views/view-blog'
 import 'dile-tabs/dile-tabs';
 import 'dile-pages/dile-pages';
 
@@ -47,7 +48,8 @@ export class PwaLive extends LitElement {
   
   static get properties() {
     return {
-      page: { type: String }  // Página seleccionada
+      page: { type: String },  // Página seleccionada
+      segments: { type: Array }
     };
   }
 
@@ -66,32 +68,39 @@ export class PwaLive extends LitElement {
     return html`
       <h1>My App</h1>
 
-      <!-- <a href="/home">Home</a> |
+      <!-- Volvemos a los enlaces y quitamos los tabs -->
+
+      <a href="/home">Home</a> |
       <a href="/about">About</a> |
       <a href="/contact">Contact</a> |
-      <a href="/map">Map</a> -->
+      <a href="/map">Map</a> |
+      <a href="/blog">Blog</a>
 
-      <dile-tabs selected="${this.page}" attrForSelected="name" @dile-tabs-selected-changed="${this.selectedChanged}">
+      <!-- LAS TABS NO FUNCIONAN BIEN. DICE EL PROFE QUE LAS ARREGLARÁ PARA EL PRÓXIMO DIA -->
+
+      <!-- <dile-tabs selected="${this.page}" attrForSelected="name" @dile-tabs-selected-changed="${this.selectedChanged}">
         <dile-tab name="home">Home</dile-tab>
         <dile-tab name="about">About</dile-tab>
         <dile-tab name="contact">Contact</dile-tab>
         <dile-tab name="map">Map</dile-tab>
-      </dile-tabs>
+      </dile-tabs> -->
 
       <dile-pages selected="${this.page}" attrForSelected="name">
          <view-home name="home" ?active=${this.page == 'home'}></view-home>
          <view-about name="about" ?active=${this.page == 'about'}></view-about>
          <view-contact name="contact" ?active=${this.page == 'contact'}></view-contact>
          <view-map name="map" ?active=${this.page == 'map'}></view-map>
+         <view-blog name="blog" ?active=${this.page == 'blog'} .segments=${this.segments}></view-blog>
       </dile-pages>
 
       <!-- <button @click="${this.navigate}">Navegar a contact</button> -->
 
       <!-- Cuatro botones con tres funcionaientos diferentes -->
-      <button @click="${this.navegarMap}">Ir al mapa</button>
+      <!-- <button @click="${this.navegarMap}">Ir al mapa</button>
       <button @click="${this.navegar}" data-navigation-path="map">Ir al Mapa</button>
       <button @click="${this.navegar}" data-navigation-path="about">Ir al Sobre nosotros</button>
-      <a href="/home"><button>Ir a la Home</button></a>
+       -->
+      
     `;
   }
 
@@ -100,15 +109,15 @@ export class PwaLive extends LitElement {
   // }
 
   
-  navegar(e){
-    let page = e.target.getAttribute('data-navigation-path')
-    this.navigate(page)
-  }
+  // navegar(e){
+  //   let page = e.target.getAttribute('data-navigation-path')
+  //   this.navigate(page)
+  // }
 
   
-  navegarMap(){
-    this.navigate('map')
-  }
+  // navegarMap(){
+  //   this.navigate('map')
+  // }
 
   // Para navegar cuando cambia la ruta en la barra de navegación
   selectedChanged(e) {
@@ -117,12 +126,11 @@ export class PwaLive extends LitElement {
 	}
 
   handleNavigation(path) {
-		console.log(path);
-		if(path == '/') {
-			this.page = 'home';
-		} else {
-			this.page = path.slice(1);
-		}
+    path = decodeURIComponent(path)
+    let urlDecoded = this._decodeUrl(path)
+    console.log('handleNavigation', path, urlDecoded);
+    this.page = urlDecoded.page
+    this.segments = urlDecoded.segments
   }
   
   // Para navegar desde el botón "Navegar a contact"
@@ -130,6 +138,18 @@ export class PwaLive extends LitElement {
   //   window.history.pushState({}, '', '/contact')
   //   this.handleNavigation(window.location.pathname)
   // }
+
+
+  _decodeUrl(path){
+    let page = (path === '/') ? 'home' : path.slice(1)
+    // Sacamos los segmentos
+    const segments = page.split('/')
+    page = segments[0]
+    return {
+      page,
+      segments
+    }
+  }
 
   // Para navegar con el select
   navigate(page) {
