@@ -68,14 +68,15 @@ export class PwaLive extends LitElement {
 
       <a href="/home">Home</a> |
       <a href="/about">About</a> |
-      <a href="/contact">Contact</a>
+      <a href="/contact">Contact</a> |
       <a href="/map">Map</a>
 
-      <!-- <dile-tabs selected="${this.page}" attrForSelected="name" @dile-tabs-selected-changed="${this.selectedChanged}">
+      <dile-tabs selected="${this.page}" attrForSelected="name" @dile-tabs-selected-changed="${this.selectedChanged}">
         <dile-tab name="home">Home</dile-tab>
         <dile-tab name="about">About</dile-tab>
         <dile-tab name="contact">Contact</dile-tab>
-      </dile-tabs> -->
+        <dile-tab name="map">Map</dile-tab>
+      </dile-tabs>
 
       <dile-pages selected="${this.page}" attrForSelected="name">
          <view-home name="home" ?active=${this.page == 'home'}></view-home>
@@ -88,9 +89,14 @@ export class PwaLive extends LitElement {
     `;
   }
 
+  // selectedChanged(e) {
+	// 	this.page = e.detail; // Al pulsar en un tab, en e.detail valdrá home, about, o contact
+  // }
+
   selectedChanged(e) {
-		this.page = e.detail; // Al pulsar en un tab, en e.detail valdrá home, about, o contact
-  }
+		let page = e.detail;
+		this.navigate(page);
+	}
 
   handleNavigation(path) {
 		console.log(path);
