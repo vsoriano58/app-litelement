@@ -4,6 +4,7 @@ import { installRouter } from 'pwa-helpers/router.js'; // Importamos el instalad
 import './views/view-home'
 import './views/view-about'
 import './views/view-contact'
+import './views/view-map'
 import 'dile-tabs/dile-tabs';
 import 'dile-pages/dile-pages';
 
@@ -56,6 +57,8 @@ export class PwaLive extends LitElement {
     // Instalación del Router
     // La función callback que pasamos se ejecutará cada vez que cambie el valor de la barra de navegación
     installRouter((location) => this.handleNavigation(location.pathname));
+
+    this.addEventListener('navigate', (e)=> this.navigate(e.detail))
   }
 
   render() {
@@ -66,6 +69,7 @@ export class PwaLive extends LitElement {
       <a href="/home">Home</a> |
       <a href="/about">About</a> |
       <a href="/contact">Contact</a>
+      <a href="/map">Map</a>
 
       <!-- <dile-tabs selected="${this.page}" attrForSelected="name" @dile-tabs-selected-changed="${this.selectedChanged}">
         <dile-tab name="home">Home</dile-tab>
@@ -77,9 +81,10 @@ export class PwaLive extends LitElement {
          <view-home name="home" ?active=${this.page == 'home'}></view-home>
          <view-about name="about" ?active=${this.page == 'about'}></view-about>
          <view-contact name="contact" ?active=${this.page == 'contact'}></view-contact>
+         <view-map name="map" ?active=${this.page == 'map'}></view-map>
       </dile-pages>
 
-      <button @click="${this.navigate}">Navegar a contact</button>
+      <!-- <button @click="${this.navigate}">Navegar a contact</button> -->
     `;
   }
 
@@ -97,9 +102,15 @@ export class PwaLive extends LitElement {
   }
   
   // Para navegar desde el botón "Navegar a contact"
-  navigate() {
-    window.history.pushState({}, '', '/contact')
-    this.handleNavigation(window.location.pathname)
-  }
+  // navigate() {
+  //   window.history.pushState({}, '', '/contact')
+  //   this.handleNavigation(window.location.pathname)
+  // }
+
+  // Para navegar con el select
+  navigate(page) {
+		window.history.pushState({}, '', '/' + page);
+		this.handleNavigation(window.location.pathname);
+	}
   
 }
