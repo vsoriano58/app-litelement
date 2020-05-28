@@ -78,6 +78,8 @@ export class PwaLive extends LitElement {
          <view-about name="about" ?active=${this.page == 'about'}></view-about>
          <view-contact name="contact" ?active=${this.page == 'contact'}></view-contact>
       </dile-pages>
+
+      <button @click="${this.navigate}">Navegar a contact</button>
     `;
   }
 
@@ -92,6 +94,12 @@ export class PwaLive extends LitElement {
 		} else {
 			this.page = path.slice(1);
 		}
-	}
+  }
+  
+  // Para navegar desde el botón "Navegar a contact"
+  navigate() {
+    window.history.pushState({}, '', '/contact')
+    this.handleNavigation(window.location.pathname)
+  }
   
 }
