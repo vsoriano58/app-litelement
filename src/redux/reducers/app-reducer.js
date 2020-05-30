@@ -1,13 +1,15 @@
 
 import {
    INCREMENTAR_CONTADOR,
-   DECREMENTAR_CONTADOR
+   DECREMENTAR_CONTADOR,
+   UPDATE_PAGE
 } from '../actions/app-actions'
 
 // El reducer necesita un estado inicial y la acción que debe ejecutar
 
 const initialState = {
    counter: 0,
+   page: 'home'
 }
 
 export const app = (state = initialState, action) => {
@@ -23,6 +25,12 @@ export const app = (state = initialState, action) => {
           ...state,
           counter: state.counter - 1
         };
+      
+      case UPDATE_PAGE:
+      return {
+         ...state,
+         page: action.page
+      };
   
       default:
         return state;

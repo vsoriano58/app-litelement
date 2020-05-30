@@ -49,7 +49,7 @@ class ViewAbout  extends connect(store)(PageViewElement) {
   }
 
   stateChanged(state){
-    console.log('Soy about y el estado es:', state)
+    // console.log('Soy about y el estado es:', state)
     this.counter = state.counter
   }
 

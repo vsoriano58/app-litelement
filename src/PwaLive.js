@@ -1,6 +1,12 @@
 import { LitElement, html, css } from 'lit-element';
 import { installRouter } from 'pwa-helpers/router.js'; // Importamos el instalador del Router
 
+//redux
+import { connect } from 'pwa-helpers/connect-mixin.js';
+import { store } from './redux/store'
+import { updatePage } from './redux/actions/app-actions'
+
+
 import './views/view-home'
 import './views/view-about'
 import './views/view-contact'
@@ -10,7 +16,7 @@ import 'dile-tabs/dile-tabs';
 import 'dile-pages/dile-pages';
 
 
-export class PwaLive extends LitElement {
+export class PwaLive extends connect(store) (LitElement) {
   
   static get styles(){
     return css`
@@ -55,7 +61,7 @@ export class PwaLive extends LitElement {
 
   constructor() {
     super();
-    this.page = "home"
+    // this.page = "home"
     // Instalación del Router
     // La función callback que pasamos se ejecutará cada vez que cambie el valor de la barra de navegación
     installRouter((location) => this.handleNavigation(location.pathname));
@@ -76,14 +82,13 @@ export class PwaLive extends LitElement {
       <a href="/map">Map</a> |
       <a href="/blog">Blog</a>
 
-      <!-- LAS TABS NO FUNCIONAN BIEN. DICE EL PROFE QUE LAS ARREGLARÁ PARA EL PRÓXIMO DIA -->
-
-      <!-- <dile-tabs selected="${this.page}" attrForSelected="name" @dile-tabs-selected-changed="${this.selectedChanged}">
+      <dile-tabs selected="${this.page}" attrForSelected="name" @dile-tabs-selected-changed="${this.selectedChanged}">
         <dile-tab name="home">Home</dile-tab>
         <dile-tab name="about">About</dile-tab>
         <dile-tab name="contact">Contact</dile-tab>
         <dile-tab name="map">Map</dile-tab>
-      </dile-tabs> -->
+        <dile-tab name="blog">Blog</dile-tab>
+      </dile-tabs>
 
       <dile-pages selected="${this.page}" attrForSelected="name">
          <view-home name="home" ?active=${this.page == 'home'}></view-home>
@@ -91,54 +96,26 @@ export class PwaLive extends LitElement {
          <view-contact name="contact" ?active=${this.page == 'contact'}></view-contact>
          <view-map name="map" ?active=${this.page == 'map'}></view-map>
          <view-blog name="blog" ?active=${this.page == 'blog'} .segments=${this.segments}></view-blog>
-      </dile-pages>
+      </dile-pages> 
 
       <!-- <button @click="${this.navigate}">Navegar a contact</button> -->
-
-      <!-- Cuatro botones con tres funcionaientos diferentes -->
-      <!-- <button @click="${this.navegarMap}">Ir al mapa</button>
-      <button @click="${this.navegar}" data-navigation-path="map">Ir al Mapa</button>
-      <button @click="${this.navegar}" data-navigation-path="about">Ir al Sobre nosotros</button>
-       -->
-      
     `;
   }
 
-  // selectedChanged(e) {
-	// 	this.page = e.detail; // Al pulsar en un tab, en e.detail valdrá home, about, o contact
-  // }
-
   
-  // navegar(e){
-  //   let page = e.target.getAttribute('data-navigation-path')
-  //   this.navigate(page)
-  // }
-
-  
-  // navegarMap(){
-  //   this.navigate('map')
-  // }
-
   // Para navegar cuando cambia la ruta en la barra de navegación
   selectedChanged(e) {
 		let page = e.detail;
 		this.navigate(page);
-	}
-
+  }
+  
   handleNavigation(path) {
     path = decodeURIComponent(path)
     let urlDecoded = this._decodeUrl(path)
     console.log('handleNavigation', path, urlDecoded);
-    this.page = urlDecoded.page
+    store.dispatch(updatePage(urlDecoded.page))
     this.segments = urlDecoded.segments
   }
-  
-  // Para navegar desde el botón "Navegar a contact"
-  // navigate() {
-  //   window.history.pushState({}, '', '/contact')
-  //   this.handleNavigation(window.location.pathname)
-  // }
-
 
   _decodeUrl(path){
     let page = (path === '/') ? 'home' : path.slice(1)
@@ -155,6 +132,11 @@ export class PwaLive extends LitElement {
   navigate(page) {
 		window.history.pushState({}, '', '/' + page);
 		this.handleNavigation(window.location.pathname);
-	}
+  }
+  
+  stateChanged(state){
+    console.log('Soy PwaLive y el estado es:', state)
+    this.page = state.page
+  }
   
 }
