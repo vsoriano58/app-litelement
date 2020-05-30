@@ -35,6 +35,11 @@
     <pwa-live></pwa-live>
   <div></div>
 
+  <script>
+		// Hay que ponerlo, si no da error que se puede ver en la consola
+		window.process = { env: { NODE_ENV: 'production' } };
+	</script>
+
   <script type="module" src="./src/pwa-live.js"></script>
 </body>
 

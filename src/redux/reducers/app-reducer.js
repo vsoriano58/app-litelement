@@ -7,10 +7,10 @@ import {
 // El reducer necesita un estado inicial y la acción que debe ejecutar
 
 const initialState = {
-   counter: 0
+   counter: 0,
 }
 
-export const app = (state = initialState, action) {
+export const app = (state = initialState, action) => {
    switch (action.type) {
       case INCREMENTAR_CONTADOR:
         return {
@@ -28,3 +28,6 @@ export const app = (state = initialState, action) {
         return state;
    }
 }
+
+
+// VAMOS A IMPLEMENTAR EL CONTADOR EN LA VISTA <view-about>

@@ -1,7 +1,13 @@
 import { LitElement, html, css } from 'lit-element';
 import { PageViewElement } from './page-view-element'
 
-class ViewAbout  extends PageViewElement {
+//redux
+import { connect } from 'pwa-helpers/connect-mixin.js';
+import { store } from '../redux/store'
+
+// cnnect(store) devuelve un mixin que le añadirá más métodos a PageViewElement
+// para trabajar con redux (método stateGhanged(state))
+class ViewAbout  extends connect(store)(PageViewElement) {
 
   static get styles() {
     return css`
@@ -12,18 +18,22 @@ class ViewAbout  extends PageViewElement {
   }
 
   static get properties() {
-    return {};
+    return {
+      counter: { type: Number }
+    };
   }
 
   constructor() {
     super();
   }
 
+  // Par que un componente se suscriba al estore y reciba los cambios utilizamos la librería pwa-helpers
+
   render() {
     return html`
       <div>
          <h2>About</h2>
-         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</p>
+         <p>Mi contador vale: ${this.counter}</p>
          <img src="https://picsum.photos/300/200">
          <p>Pempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
          <p>Huis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
@@ -33,7 +43,16 @@ class ViewAbout  extends PageViewElement {
       </div>
     `;
   }
+
+  stateChanged(state){
+    console.log(state)
+    this.counter = state.counter
+  }
 }
+
+
+
+
 
 customElements.define('view-about', ViewAbout);
 
