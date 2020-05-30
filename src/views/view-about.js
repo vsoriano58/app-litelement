@@ -4,6 +4,7 @@ import { PageViewElement } from './page-view-element'
 //redux
 import { connect } from 'pwa-helpers/connect-mixin.js';
 import { store } from '../redux/store'
+import { incrementarContador, decrementarContador } from '../redux/actions/app-actions'
 
 // cnnect(store) devuelve un mixin que le añadirá más métodos a PageViewElement
 // para trabajar con redux (método stateGhanged(state))
@@ -34,7 +35,10 @@ class ViewAbout  extends connect(store)(PageViewElement) {
       <div>
          <h2>About</h2>
          <p>Mi contador vale: ${this.counter}</p>
-         <img src="https://picsum.photos/300/200">
+        <button @click="${this.incrementar}">+1</button>
+        <button @click="${this.decrementar}">-1</button>
+
+         <p><img src="https://picsum.photos/300/200"></p>
          <p>Pempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
          <p>Huis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo</p>
          <p>Nonsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse</p>
@@ -45,9 +49,20 @@ class ViewAbout  extends connect(store)(PageViewElement) {
   }
 
   stateChanged(state){
-    console.log(state)
+    console.log('Soy about y el estado es:', state)
     this.counter = state.counter
   }
+
+  incrementar(){
+    const action = incrementarContador()
+    store.dispatch(action)
+  }
+
+  // También se puede poner así:
+  decrementar(){
+    store.dispatch(decrementarContador())
+  }
+
 }
 
 

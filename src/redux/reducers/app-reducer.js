@@ -15,13 +15,13 @@ export const app = (state = initialState, action) => {
       case INCREMENTAR_CONTADOR:
         return {
           ...state,
-          count: state.counter + 1
+          counter: state.counter + 1
         };
   
       case DECREMENTAR_CONTADOR:
         return {
           ...state,
-          count: state.counter - 1
+          counter: state.counter - 1
         };
   
       default:
