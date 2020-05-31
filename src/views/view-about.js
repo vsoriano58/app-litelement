@@ -5,6 +5,11 @@ import { PageViewElement } from './page-view-element'
 import { connect } from 'pwa-helpers/connect-mixin.js';
 import { store } from '../redux/store'
 import { incrementarContador, decrementarContador } from '../redux/actions/counter-actions'
+import { counter } from '../redux/reducers/counter-reducer.js';
+
+store.addReducers({
+  counter: counter
+})
 
 // cnnect(store) devuelve un mixin que le añadirá más métodos a PageViewElement
 // para trabajar con redux (método stateGhanged(state))
