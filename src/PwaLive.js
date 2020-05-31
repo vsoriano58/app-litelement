@@ -14,6 +14,7 @@ import './views/view-map'
 import './views/view-blog'
 import 'dile-tabs/dile-tabs';
 import 'dile-pages/dile-pages';
+import 'dile-spinner/dile-spinner-modal'
 
 
 export class PwaLive extends connect(store) (LitElement) {
@@ -54,6 +55,7 @@ export class PwaLive extends connect(store) (LitElement) {
   
   static get properties() {
     return {
+      loading: { type: Boolean },
       page: { type: String },  // Página seleccionada
       segments: { type: Array }
     };
@@ -96,9 +98,10 @@ export class PwaLive extends connect(store) (LitElement) {
          <view-contact name="contact" ?active=${this.page == 'contact'}></view-contact>
          <view-map name="map" ?active=${this.page == 'map'}></view-map>
          <view-blog name="blog" ?active=${this.page == 'blog'} .segments=${this.segments}></view-blog>
-      </dile-pages> 
+      </dile-pages>
 
-      <!-- <button @click="${this.navigate}">Navegar a contact</button> -->
+      <dile-spinner-modal ?active="${this.loading}"></dile-spinner-modal>  
+
     `;
   }
 
@@ -137,6 +140,7 @@ export class PwaLive extends connect(store) (LitElement) {
   stateChanged(state){
     console.log('Soy PwaLive y el estado es:', state)
     this.page = state.page
+    this.loading = state.loading
   }
   
 }
