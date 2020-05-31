@@ -1,5 +1,16 @@
-import { createStore, applyMiddleware, compose } from 'redux'
+import { 
+   createStore, 
+   applyMiddleware, 
+   compose,
+   combineReducers } from 'redux'
+
 import { app } from './reducers/app-reducer.js'
+import { counter } from './reducers/counter-reducer.js'
+
+const combinedReducers = combineReducers({
+  app: app,
+  counter: counter,
+});
 
 import thunk from 'redux-thunk';
 
@@ -8,8 +19,8 @@ import thunk from 'redux-thunk';
 const devCompose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export const store = createStore(
-   app,
-      devCompose(
-   applyMiddleware(thunk)
+   combinedReducers,
+   devCompose(
+      applyMiddleware(thunk)
    )
 ) 

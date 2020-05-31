@@ -140,8 +140,8 @@ export class PwaLive extends connect(store) (LitElement) {
   
   stateChanged(state){
     console.log('Soy PwaLive y el estado es:', state)
-    this.page = state.page
-    this.loading = state.loading
+    this.page = state.app.page
+    this.loading = state.app.loading
   }
   
 }

@@ -1,6 +1,4 @@
 
-export const INCREMENTAR_CONTADOR = 'INCREMENTAR_CONTADOR'
-export const DECREMENTAR_CONTADOR = 'DECREMENTAR_CONTADOR'
 export const UPDATE_PAGE = 'UPDATE_PAGE'
 export const START_LOADING = 'START_LOADING'
 export const STOP_LOADING = 'STOP_LOADING'
@@ -15,18 +13,6 @@ export const startLoading = () => {
 export const stopLoading = () => {
    return {
       type: STOP_LOADING
-   }
-}
-
-export const incrementarContador = () => {
-   return {
-      type: INCREMENTAR_CONTADOR
-   }
-}
-
-export const decrementarContador = () => {
-   return {
-      type: DECREMENTAR_CONTADOR
    }
 }
 
