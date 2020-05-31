@@ -4,14 +4,14 @@ import { installRouter } from 'pwa-helpers/router.js'; // Importamos el instalad
 //redux
 import { connect } from 'pwa-helpers/connect-mixin.js';
 import { store } from './redux/store'
-import { updatePage } from './redux/actions/app-actions'
+import { loadPage } from './redux/actions/app-actions'
 
 
-import './views/view-home'
-import './views/view-about'
-import './views/view-contact'
-import './views/view-map'
-import './views/view-blog'
+// import './views/view-home'
+// import './views/view-about'
+// import './views/view-contact'
+// import './views/view-map'
+// import './views/view-blog'
 import 'dile-tabs/dile-tabs';
 import 'dile-pages/dile-pages';
 import 'dile-spinner/dile-spinner-modal'
@@ -98,6 +98,7 @@ export class PwaLive extends connect(store) (LitElement) {
          <view-contact name="contact" ?active=${this.page == 'contact'}></view-contact>
          <view-map name="map" ?active=${this.page == 'map'}></view-map>
          <view-blog name="blog" ?active=${this.page == 'blog'} .segments=${this.segments}></view-blog>
+         <view-404 name="404" ?active=${this.page == '404'}></view-404>
       </dile-pages>
 
       <dile-spinner-modal ?active="${this.loading}"></dile-spinner-modal>  
@@ -116,7 +117,7 @@ export class PwaLive extends connect(store) (LitElement) {
     path = decodeURIComponent(path)
     let urlDecoded = this._decodeUrl(path)
     console.log('handleNavigation', path, urlDecoded);
-    store.dispatch(updatePage(urlDecoded.page))
+    store.dispatch(loadPage(urlDecoded.page))
     this.segments = urlDecoded.segments
   }
 

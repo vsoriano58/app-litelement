@@ -30,6 +30,32 @@ export const decrementarContador = () => {
    }
 }
 
+export const loadPage = (page) => (dispatch) => {
+
+   switch(page) {
+     case 'home':
+       import('../../views/view-home.js');
+       break;
+     case 'about':
+       import('../../views/view-about.js');
+       break;
+     case 'contact':
+       import('../../views/view-contact.js');
+       break;
+     case 'map':
+       import('../../views/view-map.js');
+       break;
+     case 'blog':
+       import('../../views/view-blog.js');
+       break;
+     default: 
+       import('../../views/view-404.js');
+       page = '404';
+       break;
+   }
+   dispatch(updatePage(page));
+ }
+
 export const updatePage = (page) => {
    return {
       type: UPDATE_PAGE,
