@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "dile-pages": "^1.1.2",
+    "dile-smooth-scroll": "^1.1.0",
     "dile-spinner": "^2.0.4",
     "dile-tabs": "^2.1.0",
     "lit-element": "^2.0.1",
