@@ -34,9 +34,11 @@ class ViewHeadquarters  extends connect(store)(PageViewElement) {
       <div>
         <h2>Sede</h2>
         <p>
-          <a href="/headquarters/madrid">Sede de Madrid</a> | <a href="/headquarters/barcelona" >Sede de Barcelona</a> | 
+          <a href="/headquarters/madrid">Sede de Madrid</a> |
+          <a href="/headquarters/barcelona" >Sede de Barcelona</a> | 
+          <a href="/headquarters/bilbao">Sede de Bilbao (no existe)</a> 
         </p>
-        ${this.section}
+     
         <dile-pages selected="${this.section}" attrForSelected="name" id="info">
           <headquarters-madrid-view name="madrid" ?active="${this.section == 'madrid'}"></headquarters-madrid-view>
           <headquarters-barcelona-view name="barcelona" ?active="${this.section == 'barcelona'}"></headquarters-barcelona-view>

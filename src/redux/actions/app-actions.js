@@ -31,18 +31,18 @@ const loadSection = (page, segments) => (dispatch) => {
    let pageParameter = '';
    if(segments.length > 0) {
       pageSection = segments[0];
-      // if(page == 'headquarters') {
-      //    switch(pageSection) {
-      //    case 'madrid':
-      //       import('../../headquarters/headquarters-madrid-view');
-      //       break;
-      //    case 'barcelona':
-      //       import('../../headquarters/headquarters-barcelona-view');
-      //       break
-      //    default:
-      //       dispatch(loadPage('404'));
-      //    }
-      // }
+      if(page == 'headquarters') {
+         switch(pageSection) {
+         case 'madrid':
+            import('../../headquarters/headquarters-madrid-view');
+            break;
+         case 'barcelona':
+            import('../../headquarters/headquarters-barcelona-view');
+            break
+         default:
+            dispatch(loadPage('404'));
+         }
+      }
    }
    if(segments.length > 1) {
       pageParameter = segments[1];
