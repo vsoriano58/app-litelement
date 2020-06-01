@@ -2,14 +2,17 @@
 import {
    UPDATE_PAGE,
    START_LOADING,
-   STOP_LOADING
+   STOP_LOADING,
+   UPDATE_SEGMENTS
 } from '../actions/app-actions'
 
 // El reducer necesita un estado inicial y la acción que debe ejecutar
 
 const initialState = {
    page: 'home',
-   loading: false
+   loading: false,
+   pageSection: '',
+   pageParameter: ''
 }
 
 export const app = (state = initialState, action) => {
@@ -31,6 +34,13 @@ export const app = (state = initialState, action) => {
           ...state,
           page: action.page
         };
+
+      case UPDATE_SEGMENTS:
+        return {
+          ...state,
+          pageSection: action.pageSection,
+          pageParameter: action.pageParameter
+        }
   
       default:
         return state;

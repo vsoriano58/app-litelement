@@ -4,7 +4,7 @@ import { installRouter } from 'pwa-helpers/router.js'; // Importamos el instalad
 //redux
 import { connect } from 'pwa-helpers/connect-mixin.js';
 import { store } from './redux/store'
-import { loadPage } from './redux/actions/app-actions'
+import { navigate } from './redux/actions/app-actions'
 
 
 // import './views/view-home'
@@ -82,14 +82,14 @@ export class PwaLive extends connect(store) (LitElement) {
       <a href="/about">About</a> |
       <a href="/contact">Contact</a> |
       <a href="/map">Map</a> |
-      <a href="/blog">Blog</a>
+      <a href="/headquarters">Blog</a>
 
       <dile-tabs selected="${this.page}" attrForSelected="name" @dile-tabs-selected-changed="${this.selectedChanged}">
         <dile-tab name="home">Home</dile-tab>
         <dile-tab name="about">About</dile-tab>
         <dile-tab name="contact">Contact</dile-tab>
         <dile-tab name="map">Map</dile-tab>
-        <dile-tab name="blog">Blog</dile-tab>
+        <dile-tab name="headquarters">Sedes</dile-tab>
       </dile-tabs>
 
       <dile-pages selected="${this.page}" attrForSelected="name">
@@ -97,11 +97,11 @@ export class PwaLive extends connect(store) (LitElement) {
          <view-about name="about" ?active=${this.page == 'about'}></view-about>
          <view-contact name="contact" ?active=${this.page == 'contact'}></view-contact>
          <view-map name="map" ?active=${this.page == 'map'}></view-map>
-         <view-blog name="blog" ?active=${this.page == 'blog'} .segments=${this.segments}></view-blog>
+         <view-headquarters name="headquarters" ?active=${this.page == 'headquarters'}></view-headquarters>
          <view-404 name="404" ?active=${this.page == '404'}></view-404>
       </dile-pages>
 
-      <dile-spinner-modal ?active="${this.loading}"></dile-spinner-modal>  
+      <dile-spinner-modal ?active="${this.loading}"></dile-spinner-modal> 
 
     `;
   }
@@ -115,22 +115,20 @@ export class PwaLive extends connect(store) (LitElement) {
   
   handleNavigation(path) {
     path = decodeURIComponent(path)
-    let urlDecoded = this._decodeUrl(path)
-    console.log('handleNavigation', path, urlDecoded);
-    store.dispatch(loadPage(urlDecoded.page))
-    this.segments = urlDecoded.segments
+    store.dispatch(navigate(path))
   }
 
-  _decodeUrl(path){
-    let page = (path === '/') ? 'home' : path.slice(1)
-    // Sacamos los segmentos
-    const segments = page.split('/')
-    page = segments[0]
-    return {
-      page,
-      segments
-    }
-  }
+  // _decodeUrl(path){
+  //   path = decodeURIComponent(path)
+  //   let page = (path === '/') ? 'home' : path.slice(1)
+  //   // Sacamos los segmentos
+  //   const segments = page.split('/')
+  //   page = segments[0]
+  //   return {
+  //     page,
+  //     segments
+  //   }
+  // }
 
   // Para navegar con el select
   navigate(page) {

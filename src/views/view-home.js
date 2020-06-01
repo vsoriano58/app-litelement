@@ -18,6 +18,9 @@ class ViewHome  extends PageViewElement {
       </p>
 
       <button @click="${this.delayPageChange}">Ir al mapa dentro de 3 segundos</button>
+      <hr>
+      <a href="/headquarters/Madrid">Sede de Madrid</a> 
+      <a href="/headquarters/Barcelona">Sede de Barcelona</a> 
     `;
   }
 
