@@ -23,10 +23,21 @@ export class PwaLive extends connect(store) (LitElement) {
     return css`
       :host {
         display: block;
-        margin: 15px;
+        
+        --primary-color: #673ab7;
+				--primary-light-color: #9a67ea;
+				--secondary-color: #fbc02d;
+				--secondary-light-color: #fbd09d;
+				--text-color: #303030;
+        --reverse-text-color: #fff;
+				--reverse-accent-color: #fdd835;
+        
+        padding: 15px;
 				--dile-tab-background-color: transparent;
 				--dile-tab-selected-background-color: transparent;
-        --dile-tab-selected-text-color: #1020c0
+        --dile-tab-selected-line-color: var(--secondary-color);
+        --dile-tab-text-color: var(--reverse-color, #fff);
+        --dile-tab-selected-text-color: var(--reverse-accent-color, #fff);
         background-color: #f9f9f9;
       }
 
@@ -49,6 +60,20 @@ export class PwaLive extends connect(store) (LitElement) {
 			}
 			dile-pages {
 				padding: 0 10px 10px;
+			}
+
+      header {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				background-color: var(--primary-color, #ddd);
+        color: var(--reverse-accent-color, #303030);
+				padding: 10px;
+				
+			}
+
+      dile-spinner-modal {
+				--dile-spinner-color: var(--secondary-color);
 			}
     `
   }
@@ -74,15 +99,16 @@ export class PwaLive extends connect(store) (LitElement) {
   render() {
     // console.log(this.selected)
     return html`
+    <header>
       <h1>My App</h1>
 
-      <!-- Volvemos a los enlaces y quitamos los tabs -->
+      <!-- Quitamos los enlaces y dejamos los tabs -->
 
-      <a href="/home">Home</a> |
+      <!-- <a href="/home">Home</a> |
       <a href="/about">About</a> |
       <a href="/contact">Contact</a> |
       <a href="/map">Map</a> |
-      <a href="/headquarters">Blog</a>
+      <a href="/headquarters">Blog</a> -->
 
       <dile-tabs selected="${this.page}" attrForSelected="name" @dile-tabs-selected-changed="${this.selectedChanged}">
         <dile-tab name="home">Home</dile-tab>
@@ -91,6 +117,7 @@ export class PwaLive extends connect(store) (LitElement) {
         <dile-tab name="map">Map</dile-tab>
         <dile-tab name="headquarters">Sedes</dile-tab>
       </dile-tabs>
+    </header>
 
       <dile-pages selected="${this.page}" attrForSelected="name">
          <view-home name="home" ?active=${this.page == 'home'}></view-home>
