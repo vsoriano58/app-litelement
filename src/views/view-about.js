@@ -11,20 +11,18 @@ store.addReducers({
   counter: counter
 })
 
+import { viewCSS } from '../styles/stylesView';
+
 // cnnect(store) devuelve un mixin que le añadirá más métodos a PageViewElement
 // para trabajar con redux (método stateGhanged(state))
 class ViewAbout  extends connect(store)(PageViewElement) {
 
   static get styles() {
-    return css`
-      :host {
-        display: block;
+    return [viewCSS, css`
+      p {
+        color: orange;
       }
-      h2 {
-        color: var(--primary-color);
-        font-weight: 300;
-      }
-    `;
+    `];
   }
 
   static get properties() {

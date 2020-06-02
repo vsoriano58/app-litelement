@@ -1,14 +1,12 @@
 import { LitElement, html, css } from 'lit-element';
 import { PageViewElement } from './page-view-element'
 
+import { viewCSS } from '../styles/stylesView';
+
 class ViewContact  extends PageViewElement {
 
   static get styles() {
-    return css`
-      :host {
-        display: block;
-      }
-    `;
+    return [viewCSS]
   }
 
   static get properties() {
