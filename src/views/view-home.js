@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit-element';
 import { PageViewElement } from './page-view-element'
 import { store } from '../redux/store';
-import { navigateDelay } from '../redux/actions/app-actions'
+import { navigateDelay, updateMetadata } from '../redux/actions/app-actions'
 
 class ViewHome  extends PageViewElement {
 
@@ -27,6 +27,7 @@ class ViewHome  extends PageViewElement {
   delayPageChange(){
     store.dispatch(navigateDelay('map'))
   }
+
 }
 
 customElements.define('view-home', ViewHome);

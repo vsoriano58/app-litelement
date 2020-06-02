@@ -3,6 +3,7 @@ export const UPDATE_PAGE = 'UPDATE_PAGE'
 export const START_LOADING = 'START_LOADING'
 export const STOP_LOADING = 'STOP_LOADING'
 export const UPDATE_SEGMENTS = 'UPDATE_SEGMENTS';
+export const UPDATE_METADATA = 'UPDATE_METADATA';
 
 
 export const startLoading = () => {
@@ -111,5 +112,12 @@ const decodeUrl = (url) => {
    return {
      page,
      segments
+   }
+ }
+
+ export const updateMetadata = (metadata) => {
+   return {
+     type: UPDATE_METADATA,
+     metadata
    }
  }

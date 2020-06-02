@@ -5,6 +5,7 @@ import { installRouter } from 'pwa-helpers/router.js'; // Importamos el instalad
 import { connect } from 'pwa-helpers/connect-mixin.js';
 import { store } from './redux/store'
 import { navigate } from './redux/actions/app-actions'
+import './utils/update-metadata';
 
 
 // import './views/view-home'
@@ -129,6 +130,7 @@ export class PwaLive extends connect(store) (LitElement) {
       </dile-pages>
 
       <dile-spinner-modal ?active="${this.loading}"></dile-spinner-modal> 
+      <update-metadata></update-metadata>
 
     `;
   }

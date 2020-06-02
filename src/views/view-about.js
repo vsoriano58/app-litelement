@@ -5,6 +5,7 @@ import { PageViewElement } from './page-view-element'
 import { connect } from 'pwa-helpers/connect-mixin.js';
 import { store } from '../redux/store'
 import { incrementarContador, decrementarContador } from '../redux/actions/counter-actions'
+import { updateMetadata } from '../redux/actions/app-actions'
 import { counter } from '../redux/reducers/counter-reducer.js';
 
 store.addReducers({
@@ -68,6 +69,15 @@ class ViewAbout  extends connect(store)(PageViewElement) {
   // También se puede poner así:
   decrementar(){
     store.dispatch(decrementarContador())
+  }
+
+  changeMetadata(){
+    store.dispatch(updateMetadata({
+      title: 'Sobre nosotros',
+      descripcion: 'Esto es info sobre nuestra empresa',
+      url: window.location.href,
+      image: '/images/escuelait.png'
+    }))
   }
 
 }

@@ -3,7 +3,8 @@ import {
    UPDATE_PAGE,
    START_LOADING,
    STOP_LOADING,
-   UPDATE_SEGMENTS
+   UPDATE_SEGMENTS,
+   UPDATE_METADATA
 } from '../actions/app-actions'
 
 // El reducer necesita un estado inicial y la acción que debe ejecutar
@@ -12,7 +13,8 @@ const initialState = {
    page: 'home',
    loading: false,
    pageSection: '',
-   pageParameter: ''
+   pageParameter: '',
+   metadata: null
 }
 
 export const app = (state = initialState, action) => {
@@ -40,6 +42,12 @@ export const app = (state = initialState, action) => {
           ...state,
           pageSection: action.pageSection,
           pageParameter: action.pageParameter
+        }
+
+      case UPDATE_METADATA:
+        return {
+          ...state,
+          metadata: action.metadata
         }
   
       default:
