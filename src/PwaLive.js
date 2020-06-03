@@ -17,6 +17,7 @@ import 'dile-tabs/dile-tabs';
 import 'dile-pages/dile-pages';
 import 'dile-spinner/dile-spinner-modal'
 import './utils/responsive-banner';
+import './utils/menu-responsive';
 import './icons/eit-icons';
 
 
@@ -47,6 +48,21 @@ export class PwaLive extends connect(store) (LitElement) {
       h1 {
         font-weight: 300;
         font-family: Roboto;
+        flex-grow: 1;
+      }
+
+      .menumobile {
+        margin-top: 10px;
+        padding: 10px 0 20px 5px;
+      }
+
+      .menumobile a {
+        display: block;
+        margin: 10px 20px;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: var(--secondary-light-color);
       }
 
       .page {
@@ -60,6 +76,7 @@ export class PwaLive extends connect(store) (LitElement) {
       dile-tabs {
 				border-bottom: 1px solid #ddd;
 				margin-bottom: 15px;
+        margin-right: 15px;
 			}
 			dile-pages {
 				padding: 0 10px 10px;
@@ -80,6 +97,12 @@ export class PwaLive extends connect(store) (LitElement) {
       dile-spinner-modal {
 				--dile-spinner-color: var(--secondary-color);
 			}
+
+      @media(min-width: 800px){
+        .maintabs {
+          display: block;
+        }
+      }
     `
   }
   
@@ -106,22 +129,27 @@ export class PwaLive extends connect(store) (LitElement) {
     return html`
     <header>
       <h1>My App</h1>
+      <menu-responsive>
+				<div slot="menudesk">
+          <dile-tabs selected="${this.page}" attrForSelected="name" @dile-tabs-selected-changed="${this.selectedChanged}">
+            <dile-tab name="home">Home</dile-tab>
+            <dile-tab name="about">About</dile-tab>
+            <dile-tab name="contact">Contact</dile-tab>
+            <dile-tab name="map">Map</dile-tab>
+            <dile-tab name="headquarters">Sedes</dile-tab>
+          </dile-tabs>
+        </div>
+        <div slot="menumobile" class="menumobile">
+						<a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/map">Site map</a>
+            <a href="/todo">To Do</a>
+            <a href="/pelis/list">Pelis</a>
+					</div>
+      </menu-responsive>
 
-      <!-- Quitamos los enlaces y dejamos los tabs -->
-
-      <!-- <a href="/home">Home</a> |
-      <a href="/about">About</a> |
-      <a href="/contact">Contact</a> |
-      <a href="/map">Map</a> |
-      <a href="/headquarters">Blog</a> -->
-
-      <dile-tabs selected="${this.page}" attrForSelected="name" @dile-tabs-selected-changed="${this.selectedChanged}">
-        <dile-tab name="home">Home</dile-tab>
-        <dile-tab name="about">About</dile-tab>
-        <dile-tab name="contact">Contact</dile-tab>
-        <dile-tab name="map">Map</dile-tab>
-        <dile-tab name="headquarters">Sedes</dile-tab>
-      </dile-tabs>
+      
 
       <div>
         <eit-icon icon="account_box"></eit-icon>	
