@@ -16,6 +16,7 @@ import './utils/update-metadata';
 import 'dile-tabs/dile-tabs';
 import 'dile-pages/dile-pages';
 import 'dile-spinner/dile-spinner-modal'
+import './utils/responsive-banner';
 
 
 export class PwaLive extends connect(store) (LitElement) {
@@ -119,18 +120,19 @@ export class PwaLive extends connect(store) (LitElement) {
         <dile-tab name="headquarters">Sedes</dile-tab>
       </dile-tabs>
     </header>
+    <responsive-banner></responsive-banner>
 
-      <dile-pages selected="${this.page}" attrForSelected="name">
-         <view-home name="home" ?active=${this.page == 'home'}></view-home>
-         <view-about name="about" ?active=${this.page == 'about'}></view-about>
-         <view-contact name="contact" ?active=${this.page == 'contact'}></view-contact>
-         <view-map name="map" ?active=${this.page == 'map'}></view-map>
-         <view-headquarters name="headquarters" ?active=${this.page == 'headquarters'}></view-headquarters>
-         <view-404 name="404" ?active=${this.page == '404'}></view-404>
-      </dile-pages>
+    <dile-pages selected="${this.page}" attrForSelected="name">
+        <view-home name="home" ?active=${this.page == 'home'}></view-home>
+        <view-about name="about" ?active=${this.page == 'about'}></view-about>
+        <view-contact name="contact" ?active=${this.page == 'contact'}></view-contact>
+        <view-map name="map" ?active=${this.page == 'map'}></view-map>
+        <view-headquarters name="headquarters" ?active=${this.page == 'headquarters'}></view-headquarters>
+        <view-404 name="404" ?active=${this.page == '404'}></view-404>
+    </dile-pages>
 
-      <dile-spinner-modal ?active="${this.loading}"></dile-spinner-modal> 
-      <update-metadata></update-metadata>
+    <dile-spinner-modal ?active="${this.loading}"></dile-spinner-modal> 
+    <update-metadata></update-metadata>
 
     `;
   }
