@@ -17,6 +17,7 @@ import 'dile-tabs/dile-tabs';
 import 'dile-pages/dile-pages';
 import 'dile-spinner/dile-spinner-modal'
 import './utils/responsive-banner';
+import './icons/eit-icons';
 
 
 export class PwaLive extends connect(store) (LitElement) {
@@ -71,6 +72,8 @@ export class PwaLive extends connect(store) (LitElement) {
 				background-color: var(--primary-color, #ddd);
         color: var(--reverse-accent-color, #303030);
 				padding: 10px;
+        --eit-icon-size: 32px;
+				--eit-icon-color: var(--secondary-color);
 				
 			}
 
@@ -119,8 +122,14 @@ export class PwaLive extends connect(store) (LitElement) {
         <dile-tab name="map">Map</dile-tab>
         <dile-tab name="headquarters">Sedes</dile-tab>
       </dile-tabs>
+
+      <div>
+        <eit-icon icon="account_box"></eit-icon>	
+      </div>
     </header>
+    
     <responsive-banner></responsive-banner>
+    
 
     <dile-pages selected="${this.page}" attrForSelected="name">
         <view-home name="home" ?active=${this.page == 'home'}></view-home>
