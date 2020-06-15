@@ -10,10 +10,13 @@
   "dependencies": {
     "dile-app-drawer": "^1.1.2",
     "dile-hamburger": "^2.0.0",
+    "dile-input": "^1.4.1",
     "dile-pages": "^1.1.2",
+    "dile-rounded-button": "^1.2.1",
     "dile-smooth-scroll": "^1.1.0",
     "dile-spinner": "^2.0.4",
     "dile-tabs": "^2.1.0",
+    "dile-toast": "^1.4.0",
     "lit-element": "^2.0.1",
     "lit-html": "^1.0.0",
     "pwa-helpers": "^0.9.1",

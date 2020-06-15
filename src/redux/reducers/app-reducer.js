@@ -4,7 +4,8 @@ import {
    START_LOADING,
    STOP_LOADING,
    UPDATE_SEGMENTS,
-   UPDATE_METADATA
+   UPDATE_METADATA,
+   SEND_FEEDBACK
 } from '../actions/app-actions'
 
 // El reducer necesita un estado inicial y la acción que debe ejecutar
@@ -14,10 +15,12 @@ const initialState = {
    loading: false,
    pageSection: '',
    pageParameter: '',
-   metadata: null
+   metadata: null,
+   feedback: null
 }
 
 export const app = (state = initialState, action) => {
+   console.log('estoy en el reducer')
    switch (action.type) {
       case START_LOADING:
         return {
@@ -49,6 +52,12 @@ export const app = (state = initialState, action) => {
           ...state,
           metadata: action.metadata
         }
+      case SEND_FEEDBACK:
+        console.log('en el reducer.... case send_feedback')
+        return {
+          ...state,
+          feedback: action.feedback
+        };
   
       default:
         return state;

@@ -19,6 +19,7 @@ import 'dile-spinner/dile-spinner-modal'
 import './utils/responsive-banner';
 import './utils/menu-responsive';
 import './icons/eit-icons';
+import './utils/eit-feedback'
 
 
 export class PwaLive extends connect(store) (LitElement) {
@@ -111,6 +112,7 @@ export class PwaLive extends connect(store) (LitElement) {
       loading: { type: Boolean },
       page: { type: String },  // Página seleccionada
       segments: { type: Array }
+     
     };
   }
 
@@ -137,6 +139,7 @@ export class PwaLive extends connect(store) (LitElement) {
             <dile-tab name="contact">Contact</dile-tab>
             <dile-tab name="map">Map</dile-tab>
             <dile-tab name="headquarters">Sedes</dile-tab>
+            <dile-tab name="pelis">Pelis</dile-tab>
           </dile-tabs>
         </div>
         <div slot="menumobile" class="menumobile">
@@ -145,7 +148,7 @@ export class PwaLive extends connect(store) (LitElement) {
             <a href="/contact">Contact</a>
             <a href="/map">Site map</a>
             <a href="/todo">To Do</a>
-            <a href="/pelis/list">Pelis</a>
+            <a href="/pelis">Pelis</a>
 					</div>
       </menu-responsive>
 
@@ -165,11 +168,14 @@ export class PwaLive extends connect(store) (LitElement) {
         <view-contact name="contact" ?active=${this.page == 'contact'}></view-contact>
         <view-map name="map" ?active=${this.page == 'map'}></view-map>
         <view-headquarters name="headquarters" ?active=${this.page == 'headquarters'}></view-headquarters>
+        <view-pelis name="pelis" ?active=${this.page == 'pelis'}></view-pelis>
         <view-404 name="404" ?active=${this.page == '404'}></view-404>
     </dile-pages>
 
     <dile-spinner-modal ?active="${this.loading}"></dile-spinner-modal> 
     <update-metadata></update-metadata>
+
+    <eit-feedback></eit-feedback>
 
     `;
   }
@@ -208,6 +214,15 @@ export class PwaLive extends connect(store) (LitElement) {
     console.log('Soy PwaLive y el estado es:', state)
     this.page = state.app.page
     this.loading = state.app.loading
+    this.section = state.app.pageSection; //  AÑADIDO DEL PROFE
   }
+
+  // updated(changedProperties){
+  //   if (changedProperties.has('feedback')){
+  //     if (this.feedback){
+  //       this.shadowRoot.getElementById('toast').open(this.feedback.msg, this.feedback.status)
+  //     }
+  //   }
+  // }
   
 }

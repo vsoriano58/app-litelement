@@ -4,7 +4,28 @@ export const START_LOADING = 'START_LOADING'
 export const STOP_LOADING = 'STOP_LOADING'
 export const UPDATE_SEGMENTS = 'UPDATE_SEGMENTS';
 export const UPDATE_METADATA = 'UPDATE_METADATA';
+export const SEND_FEEDBACK = 'SEND_FEEDBACK';
 
+const sendFeedback = (feedback) => {
+   return {
+     type: SEND_FEEDBACK,
+     feedback
+   }
+}
+
+export const positiveFeedback = (msg) => {
+   return sendFeedback({
+     msg,
+     status: 'success'
+   })
+ }
+
+ export const negativeFeedback = (msg) => {
+   return sendFeedback({
+     msg,
+     status: 'error'
+   })
+ }
 
 export const startLoading = () => {
    return {
@@ -34,15 +55,31 @@ const loadSection = (page, segments) => (dispatch) => {
       pageSection = segments[0];
       if(page == 'headquarters') {
          switch(pageSection) {
-         case 'madrid':
-            import('../../headquarters/headquarters-madrid-view');
-            break;
-         case 'barcelona':
-            import('../../headquarters/headquarters-barcelona-view');
-            break
-         default:
-            dispatch(loadPage('404'));
+           case 'madrid':
+              import('../../headquarters/headquarters-madrid-view');
+              break;
+           case 'barcelona':
+              import('../../headquarters/headquarters-barcelona-view');
+              break
+           default:
+              dispatch(loadPage('404'));
          }
+      } else if(page == 'pelis') {
+        switch(pageSection) {
+          case 'list':
+            import('../../pelis/pelis-list-view');
+            break;
+          case 'insert':
+          console.log('insertando.....')
+            import('../../pelis/pelis-insert-view');
+            break
+          case 'edit':
+            import('../../pelis/pelis-edit-view');
+            break
+              
+          default:
+            dispatch(loadPage('404'));
+        }
       }
    }
    if(segments.length > 1) {
@@ -77,6 +114,9 @@ export const loadPage = (page) => (dispatch) => {
      case 'headquarters':
        import('../../views/view-headquarters.js');
        break
+     case 'pelis':
+         import('../../views/view-pelis.js');
+         break;
      default: 
        import('../../views/view-404.js');
        page = '404';

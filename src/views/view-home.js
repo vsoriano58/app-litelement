@@ -1,9 +1,19 @@
 import { LitElement, html, css } from 'lit-element';
 import { PageViewElement } from './page-view-element'
 import { store } from '../redux/store';
-import { navigateDelay, updateMetadata } from '../redux/actions/app-actions'
+import { navigateDelay } from '../redux/actions/app-actions'
+import { FeedbackEmmiterMixin } from '../mixins/feedbak-emmiter-mixin';
 
-class ViewHome  extends PageViewElement {
+class ViewHome  extends FeedbackEmmiterMixin(PageViewElement) {
+
+  static get styles() {
+    return css`
+      :host {
+        display: block;
+      }
+      img { max-width: 100%;}
+    `;
+  }
 
   render() {
     return html`
@@ -18,6 +28,9 @@ class ViewHome  extends PageViewElement {
       </p>
 
       <button @click="${this.delayPageChange}">Ir al mapa dentro de 3 segundos</button>
+
+      <button @click="${this.enviarFeedbackPositivo}">Enviar feedback positivo</button>
+      <button @click="${this.enviarFeedbackNegativo}">Enviar feedback negativo</button>
       <hr>
       <a href="/headquarters/madrid">Sede de Madrid</a> 
       <a href="/headquarters/barcelona">Sede de Barcelona</a> 
@@ -26,6 +39,14 @@ class ViewHome  extends PageViewElement {
 
   delayPageChange(){
     store.dispatch(navigateDelay('map'))
+  }
+
+  enviarFeedbackPositivo() {
+    this.positiveFeedback('Esto ha ido bien!!!');
+  }
+  
+  enviarFeedbackNegativo() {
+    this.negativeFeedback('Que pena no ha funcionado :(');
   }
 
 }
