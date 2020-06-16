@@ -22,7 +22,7 @@ class ViewContact  extends PageViewElement {
   render() {
     return html`
       <div>
-         <h2>Contact</h2>
+         <h2>Contactar</h2>
          <p>Página para contactar</p>
       </div>
     `;
