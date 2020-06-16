@@ -99,6 +99,16 @@ export class PwaLive extends connect(store) (LitElement) {
 				--dile-spinner-color: var(--secondary-color);
 			}
 
+      .homelink {
+				color: inherit;
+				text-decoration: none;
+			}
+			footer {
+				text-align: center;
+				padding: 10px;
+				font-size: 0.8em;
+			}
+
       @media(min-width: 800px){
         .maintabs {
           display: block;
@@ -130,7 +140,7 @@ export class PwaLive extends connect(store) (LitElement) {
     // console.log(this.selected)
     return html`
     <header>
-      <h1>My App</h1>
+    <h1><a href="/" class="homelink">My App</a></h1>
       <menu-responsive>
 				<div slot="menudesk">
           <dile-tabs selected="${this.page}" attrForSelected="name" @dile-tabs-selected-changed="${this.selectedChanged}">
@@ -171,6 +181,16 @@ export class PwaLive extends connect(store) (LitElement) {
         <view-pelis name="pelis" ?active=${this.page == 'pelis'}></view-pelis>
         <view-404 name="404" ?active=${this.page == '404'}></view-404>
     </dile-pages>
+
+    <hr>
+			<footer>
+				<a href="/home">Home</a> |
+				<a href="/about">About</a> |
+				<a href="/contact">Contact</a> |
+				<a href="/map">Mapa</a> |
+				<a href="/headquarters">Sedes</a> |
+				<a href="/pelis">Pelis</a> 
+			</footer>
 
     <dile-spinner-modal ?active="${this.loading}"></dile-spinner-modal> 
     <update-metadata></update-metadata>
