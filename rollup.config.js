@@ -1,3 +1,4 @@
+
 import merge from 'deepmerge';
 // use createSpaConfig for bundling a Single Page App
 import { createSpaConfig } from '@open-wc/building-rollup';
@@ -33,7 +34,7 @@ export default merge(baseConfig, {
   plugins: [
     cpy({
      // copy over all images files
-      files: ['**/*.png', '**/*.jpg'],
+      files: ['**/*.png', '**/*.jpg', 'manifest.json'],
       dest: 'dist',
       options: {
          // parents makes sure to preserve the original folder structure
