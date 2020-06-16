@@ -34,11 +34,7 @@ export default merge(baseConfig, {
   plugins: [
     cpy({
      // copy over all images files
-<<<<<<< HEAD
-      files: ['**/*.png', '**/*.jpg', 'manifest.json', '_redirects'],
-=======
-      files: ['**/*.png', '**/*.jpg', 'manifest.json'],
->>>>>>> ea2586d0d91405b5f99b8e9f4a190a6a4bfb1e3d
+      files: ['**/*.png', '**/*.jpg', '_redirects'],
       dest: 'dist',
       options: {
          // parents makes sure to preserve the original folder structure
